@@ -9,18 +9,57 @@
 #import <Foundation/Foundation.h>
 
 #import "Kitchen.h"
+#import "Manager.h"
+#import "HappyManager.h"
 
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
         
-        NSLog(@"Please pick your pizza size and toppings:");
+        
         
         Kitchen *restaurantKitchen = [Kitchen new];
+
+        Manager *angryManager = nil;
+        
+        HappyManager *happyManager = nil;
+        
+        
         
         while (TRUE) {
             // Loop forever
+            NSLog(@"Which Manager would you like? A. Angry B.Happy \nC.None \nPick your choice:");
+            char managerChoice[100];
+            fgets(managerChoice, 100, stdin);
+            
+            NSString *managerInput = [[NSString alloc] initWithUTF8String:managerChoice];
+            
+            if([managerInput characterAtIndex:0] == 'A'){
+                
+                if (angryManager == nil) {
+                    angryManager = [Manager new];
+                }
+                
+                restaurantKitchen.kitchenDelegate = angryManager;
+                
+            }else if([managerInput characterAtIndex:0] == 'B'){
+                
+                if (happyManager == nil){
+                    happyManager = [HappyManager new];
+                }
+                
+                restaurantKitchen.kitchenDelegate = happyManager;
+                
+            }else{
+                restaurantKitchen.kitchenDelegate = nil;
+            
+            }
+                  
+            
+            
+            
+            NSLog(@"Please pick your pizza size and toppings:");
             
             NSLog(@"> ");
             char str[100];
@@ -30,6 +69,7 @@ int main(int argc, const char * argv[])
             inputString = [inputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
             NSLog(@"Input was %@", inputString);
+            
             
             // Take the first word of the command as the size, and the rest as the toppings
             NSArray *commandWords = [inputString componentsSeparatedByString:@" "];
@@ -68,21 +108,15 @@ int main(int argc, const char * argv[])
                 
             }
             
+            Pizza* newPizza = [restaurantKitchen makePizzaWithSize:size toppings:mutableCommandWords];
+            if(newPizza){
+                NSLog(@"Size %i", (int)newPizza.size);
+                NSLog(@"Toppings %@", mutableCommandWords);
+            }else {
+                NSLog(@"No Pizza was created");
+            }
             
-//            NSString *pepperoniCommand = [mutableCommandWords firstObject];
-//            
-//            BOOL isPepperoni = [pepperoniCommand isEqualToString:@"pepperoni"];
-//            
-//            if (isPepperoni) {
-//                // pepperoni
-//                Pizza *newPizza = [restaurantKitchen makePizzaWithSize:size toppings:@[@"pepperoni", @"cheese"]];
-//                
-//            } else {
-//                // regular 'za
-            
-                Pizza *newPizza = [restaurantKitchen makePizzaWithSize:size toppings:mutableCommandWords];
-//            }
-            
+
 
             
 //
