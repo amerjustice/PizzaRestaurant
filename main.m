@@ -11,6 +11,7 @@
 #import "Kitchen.h"
 #import "Manager.h"
 #import "HappyManager.h"
+#import "DeliveryService.h"
 
 int main(int argc, const char * argv[])
 {
@@ -20,6 +21,8 @@ int main(int argc, const char * argv[])
         
         
         Kitchen *restaurantKitchen = [Kitchen new];
+        
+        DeliveryService *deliveryServce = [DeliveryService new];
 
         Manager *angryManager = nil;
         
@@ -47,6 +50,7 @@ int main(int argc, const char * argv[])
                 
                 if (happyManager == nil){
                     happyManager = [HappyManager new];
+                    happyManager.deliveryService = deliveryServce;
                 }
                 
                 restaurantKitchen.kitchenDelegate = happyManager;
@@ -115,6 +119,9 @@ int main(int argc, const char * argv[])
             }else {
                 NSLog(@"No Pizza was created");
             }
+            
+            NSMutableArray *resultofPizza = [deliveryServce deliveredPizzaDescription];
+            NSLog(@" %@", resultofPizza);
             
 
 

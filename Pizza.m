@@ -30,7 +30,10 @@
     return self;
 }
 
-
+-(NSString*)description {
+    return [NSString stringWithFormat:@"pizza with toppings: %@ and size %ld", self.toppings, (long)self.size];
+    
+}
 
 
 

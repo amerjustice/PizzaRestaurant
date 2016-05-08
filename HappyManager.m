@@ -8,6 +8,7 @@
 
 #import "HappyManager.h"
 #import "Pizza.h"
+#import "DeliveryService.h"
 
 
 @implementation HappyManager
@@ -22,6 +23,10 @@
 
 -(void)kitchenDidMakePizza:(Pizza *)pizza{
     NSLog(@"Thanks for ordering!");
+    
+    [self.deliveryService deliverPizza:pizza];
 }
+
+
 
 @end

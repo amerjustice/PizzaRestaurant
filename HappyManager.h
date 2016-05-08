@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "KitchenDelegate.h"
+#import "DeliveryService.h"
 
 @interface HappyManager : NSObject <KitchenDelegate>
-
+@property (nonatomic) DeliveryService* deliveryService;
 @end
